@@ -1,0 +1,6 @@
+{
+    "appTitle": "Online Robot Controller",
+    "apiBase": "/api",
+    "wsBase": "/api/ws",
+    "urdfUrl": ""
+}

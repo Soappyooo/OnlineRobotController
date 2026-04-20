@@ -1,0 +1,67 @@
+[general]
+command_hz = 60
+state_hz = 60
+camera_hz = 15
+default_angle_step_deg = 0.5
+default_length_step_m = 0.001
+
+[sim]
+urdf_path = "assets/ur5_shadow_example/urdf/ur5_shadow.urdf"
+
+[[sim.chains]]
+id = "ur5"
+name = "UR5"
+world_link = "world"
+base_link = "ur5_base_link"
+tip_link = "ur5_tool0"
+joints = [
+    "ur5_shoulder_pan_joint",
+    "ur5_shoulder_lift_joint",
+    "ur5_elbow_joint",
+    "ur5_wrist_1_joint",
+    "ur5_wrist_2_joint",
+    "ur5_wrist_3_joint",
+]
+joint_offsets_deg = [0.0, -90.0, 90.0, 0.0, 90.0, 0.0]
+initial_joints_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+[[sim.chains]]
+id = "shadow_hand_ff"
+name = "Shadow Hand First Finger"
+world_link = "world"
+base_link = "sh_forearm"
+tip_link = "sh_fftip"
+joints = ["sh_WRJ2", "sh_WRJ1", "sh_FFJ4", "sh_FFJ3", "sh_FFJ2", "sh_FFJ1"]
+joint_offsets_deg = [0.0, 0.0, 0.0, 30.0, 30.0, 0.0]
+initial_joints_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+[[sim.chains]]
+id = "shadow_hand_th"
+name = "Shadow Hand Thumb"
+world_link = "world"
+base_link = "sh_forearm"
+tip_link = "sh_thtip"
+joints = [
+    "sh_WRJ2",
+    "sh_WRJ1",
+    "sh_THJ5",
+    "sh_THJ4",
+    "sh_THJ3",
+    "sh_THJ2",
+    "sh_THJ1",
+]
+joint_offsets_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+initial_joints_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+[real]
+dummy_var = "A dummy variable"
+worker_hz = 100
+max_joint_speed_deg_s = 30.0
+
+[[real.cameras]]
+id = "dummy_camera_a"
+name = "Dummy Camera A"
+
+[[real.cameras]]
+id = "dummy_camera_b"
+name = "Dummy Camera B"

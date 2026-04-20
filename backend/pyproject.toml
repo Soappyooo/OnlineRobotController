@@ -1,0 +1,22 @@
+[project]
+name = "online-robot-controller-backend"
+version = "0.1.0"
+description = "Backend services for Online Robot Controller"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "fastapi==0.116.1",
+  "uvicorn[standard]==0.35.0",
+  "pydantic==2.11.7",
+  "httpx==0.28.1",
+  "tomli-w==1.2.0",
+  "numpy==2.4.3",
+  "pytracik==0.0.3",
+  "pytest==8.4.1",
+  "pytest-cov==5.0.0",
+  "opencv-python>=4.13.0.92",
+]
+
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

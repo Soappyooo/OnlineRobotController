@@ -1,0 +1,12 @@
+.venv/
+**/.venv/
+node_modules/
+dist/
+__pycache__/
+.pytest_cache/
+.coverage
+*.pyc
+*.pyo
+.env
+.vscode/
+backend/.active_plugin
