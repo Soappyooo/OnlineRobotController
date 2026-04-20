@@ -129,6 +129,45 @@ Recommended path:
 3. Rename the folder and update its `config.toml`.
 4. Implement the real-mode hooks in your plugin class.
 
+The plugin config typically looks like this:
+```toml
+[general]
+command_hz = 60  # In teach panel, commands are sent at this frequency when pressing the buttons
+state_hz = 60  # The backend will try to call get_joint_states and get_estop at this frequency in real mode
+camera_hz = 15  # The backend will try to call get_real_camera_frame at this frequency in real mode for each camera
+default_angle_step_deg = 0.5  # When using the teach panel buttons, joints will move in increments of this size
+default_length_step_m = 0.001  # When using the teach panel buttons in cartesian mode, the end-effector will move in increments of this size
+
+
+[sim]
+urdf_path = "assets/your_assets/some_robot.urdf"  # Path to the URDF file used for visualization. Relative to project directory.
+
+[[sim.chains]]  # You can have multiple chains. Here's an example of a 6-DOF chain.
+id = "chain_id"  # Unique identifier for this chain, used in API calls
+name = "Chain Name"  # Display name for this chain, shown in the UI
+world_link = "world"  # The name of the world link in the URDF. Use "base_link" if the URDF doesn't have a separate world link. In cartesian control mode, the end-effector pose can be expressed in this world frame.
+base_link = "base_link"  # The name of the base link in the URDF. Used for IK calculations.
+tip_link = "tip_link"  # The name of the tip link (end-effector) in the URDF.
+joints = [
+    "joint_1",
+    "joint_2",
+    "joint_3",
+    "joint_4",
+    "joint_5",
+    "joint_6",
+]  # Joint names in the URDF, in order from base to tip.
+joint_offsets_deg = [0.0, -90.0, 90.0, 0.0, 90.0, 0.0]  # Joint angle offsets in degrees, applied to URDF visualization. E.g., if you have an offset of 90 degrees, then when the actual joint angle is 0, the URDF will show it at 90 degrees.
+initial_joints_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Initial actual joint angles in degrees. 
+
+[real]
+dummy_var = "A dummy variable"  # You can add any custom variables you want here. Check out ur5_shadow plugin for using them.
+
+[[real.cameras]]  # You can have multiple cameras. 
+id = "camera_id"  # Unique identifier for this camera, used in API calls
+name = "Camera Name"  # Display name for this camera, shown in the UI
+```
+
+
 The main hooks plugin authors typically override are:
 
 - `get_joint_states(chain_id) -> list[float]`

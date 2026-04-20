@@ -126,6 +126,45 @@ https://github.com/user-attachments/assets/45c3936a-3e7f-43d5-bd7c-42c662597575
 3. 重命名目录并修改其中的 `config.toml`。
 4. 在插件类中实现真实模式相关接口。
 
+插件配置通常类似下面这样：
+
+```toml
+[general]
+command_hz = 60  # 在 Teach Panel 中按住按钮时，命令会按这个频率发送
+state_hz = 60  # 在实机模式下，后端会尝试按这个频率调用 get_joint_states 和 get_estop
+camera_hz = 15  # 在实机模式下，后端会尝试按这个频率为每个相机调用 get_real_camera_frame
+default_angle_step_deg = 0.5  # 在关节控制模式下使用 Teach Panel 按钮时，每次增量的角度
+default_length_step_m = 0.001  # 在笛卡尔控制模式下使用 Teach Panel 按钮时，末端每次移动的距离
+
+
+[sim]
+urdf_path = "assets/your_assets/some_robot.urdf"  # 用于可视化的 URDF 路径，相对于项目根目录
+
+[[sim.chains]]  # 你可以定义多个运动链。这里是一个 6 自由度链的示例。
+id = "chain_id"  # 运动链唯一标识，在 API 调用中使用
+name = "Chain Name"  # 显示名称，会出现在 UI 中
+world_link = "world"  # URDF 中世界坐标链接名。如果 URDF 没有独立 world link，可使用 "base_link"。在笛卡尔控制中，末端位姿可以表达在这个世界坐标系下。
+base_link = "base_link"  # 基座链接名，用于 IK 计算
+tip_link = "tip_link"  # 末端执行器链接名
+joints = [
+	"joint_1",
+	"joint_2",
+	"joint_3",
+	"joint_4",
+	"joint_5",
+	"joint_6",
+]  # URDF 中从 base 到 tip 的关节名顺序。
+joint_offsets_deg = [0.0, -90.0, 90.0, 0.0, 90.0, 0.0]  # 应用于 URDF 可视化的关节角偏移。例如偏移为 90 度时，真实关节角为 0，界面中的 URDF 会显示为 90 度。
+initial_joints_deg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # 初始真实关节角，单位为度。
+
+[real]
+dummy_var = "A dummy variable"  # 这里可以放任意自定义变量，可参考 ur5_shadow 插件的实际用法。
+
+[[real.cameras]]  # 你可以定义多个相机。
+id = "camera_id"  # 相机唯一标识，在 API 调用中使用
+name = "Camera Name"  # 相机显示名称，会出现在 UI 中
+```
+
 插件作者通常需要重写的核心接口包括：
 
 - `get_joint_states(chain_id) -> list[float]`
