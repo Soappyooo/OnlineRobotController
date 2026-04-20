@@ -94,6 +94,11 @@ Launch the app, keep the default example plugin, and explore the interface befor
 
 ▶ Usage demo: [example_usage.mp4](assets/readme_assets/example_usage.mp4)
 
+
+https://github.com/user-attachments/assets/45c3936a-3e7f-43d5-bd7c-42c662597575
+
+
+
 The main screen is organized around a dashboard of movable panels:
 
 - The `+` button at the top-left adds a new panel.
