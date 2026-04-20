@@ -94,6 +94,8 @@ npm run dev
 
 ▶ 使用示例视频：[example_usage.mp4](assets/readme_assets/example_usage.mp4)
 
+https://github.com/user-attachments/assets/45c3936a-3e7f-43d5-bd7c-42c662597575
+
 整个页面围绕一个可自由编排的面板仪表盘展开：
 
 - 左上角的 `+` 按钮用于添加新面板。
